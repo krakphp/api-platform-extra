@@ -9,17 +9,6 @@ services:
   Krak\ApiPlatformExtra\Operation\PluralDataPathSegmentNameGenerator:
     decorates: api_platform.path_segment_name_generator
     arguments: ['@Krak\ApiPlatformExtra\Operation\PluralDataPathSegmentNameGenerator.inner']
-
-  Krak\ApiPlatformExtra\Documentation\Serializer\AdditionalSwaggerNormalizer:
-    decorates: api_platform.swagger.normalizer.documentation
-    arguments:
-      $normalizer: '@Krak\ApiPlatformExtra\Documentation\Serializer\AdditionalSwaggerNormalizer.inner'
-    tags:
-      - { name: 'serializer.normalizer', priority: 18 }
-
-  Krak\ApiPlatformExtra\DataPersister\MessageBusDataPersister:
-    decorates: api_platform.data_persister
-    arguments:
-      - '@message_bus'
-      - '@Krak\ApiPlatformExtra\DataPersister\MessageBusDataPersister.inner'
-
+  Krak\ApiPlatformExtra\Metadata\Resource\SchemaOnlyResourceMetadataFactory:
+    decorates: api_platform.metadata.resource.metadata_factory
+    arguments: ['@Krak\ApiPlatformExtra\Metadata\Resource\SchemaOnlyResourceMetadataFactory.inner']

@@ -1,14 +1,14 @@
 {
-    "name": "krak/symfony-playground",
-    "description": "Symfony playground for tinkering/testign your app.",
+    "name": "krak/api-platform-extra",
+    "description": "API Platform Extra Goodies.",
     "type": "symfony-bundle",
-    "homepage": "https://github.com/krakphp/symfony-playground",
+    "homepage": "https://github.com/krakphp/api-platform-extra",
     "keywords": [
         "symfony",
         "symfony-bundle",
         "symfony4",
-        "playground",
-        "tinker"
+        "api-platform",
+        "extra"
     ],
     "license": "MIT",
     "authors": [
@@ -23,12 +23,14 @@
         }
     },
     "require": {
+        "api-platform/core": "^2.3",
         "symfony/config": "^4.0",
         "symfony/dependency-injection": "^4.0",
         "symfony/http-kernel": "^4.0",
         "symfony/yaml": "^4.0"
     },
     "require-dev": {
-        "symfony/messenger": "^4.1"
+        "symfony/messenger": "^4.1",
+        "symfony/routing": "^4.1"
     }
 }
