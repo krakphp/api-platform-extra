@@ -1,0 +1,25 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    public: false       # Allows optimizing the container by removing unused services; this also means
+    # fetching services directly from the container via $container->get() won't work.
+    # The best practice is to be explicit about your dependencies anyway.
+  Krak\ApiPlatformExtra\Serializer\ConstructorResourceItemNormalizer:
+  Krak\ApiPlatformExtra\Serializer\JsonLdConstructorResourceItemNormalizer:
+  Krak\ApiPlatformExtra\Operation\PluralDataPathSegmentNameGenerator:
+    decorates: api_platform.path_segment_name_generator
+    arguments: ['@Krak\ApiPlatformExtra\Operation\PluralDataPathSegmentNameGenerator.inner']
+
+  Krak\ApiPlatformExtra\Documentation\Serializer\AdditionalSwaggerNormalizer:
+    decorates: api_platform.swagger.normalizer.documentation
+    arguments:
+      $normalizer: '@Krak\ApiPlatformExtra\Documentation\Serializer\AdditionalSwaggerNormalizer.inner'
+    tags:
+      - { name: 'serializer.normalizer', priority: 18 }
+
+  Krak\ApiPlatformExtra\DataPersister\MessageBusDataPersister:
+    decorates: api_platform.data_persister
+    arguments:
+      - '@message_bus'
+      - '@Krak\ApiPlatformExtra\DataPersister\MessageBusDataPersister.inner'
+
