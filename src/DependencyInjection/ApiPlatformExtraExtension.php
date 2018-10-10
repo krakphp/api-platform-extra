@@ -32,6 +32,7 @@ class ApiPlatformExtraExtension extends Extension
         $this->registerDataPersister($container, $config);
         $container->setParameter("api_platform_extra._enable_operation_resource_class", $config['enable_operation_resource_class']);
         $container->setParameter("api_platform_extra._enable_constructor_deserialization", $config['enable_constructor_deserialization']);
+        $container->setParameter("api_platform_extra._enable_overriding_annotation_property_metadata_factory", $config['enable_overriding_annotation_property_metadata_factory']);
     }
 
     private function registerAdditionalSwaggerNormalizer(ContainerBuilder $container, array $config) {

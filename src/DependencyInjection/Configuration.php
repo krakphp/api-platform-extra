@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder() {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('api_platform_extra');
-        
+
         $rootNode
             ->children()
                 ->booleanNode('enable_message_bus_data_persister')
@@ -25,6 +25,9 @@ class Configuration implements ConfigurationInterface
                     ->defaultTrue()
                 ->end()
                 ->booleanNode('enable_constructor_deserialization')
+                    ->defaultTrue()
+                ->end()
+                ->booleanNode('enable_overriding_annotation_property_metadata_factory')
                     ->defaultTrue()
                 ->end()
                 ->scalarNode('additional_swagger_path')

@@ -113,6 +113,9 @@ final class OperationResourceClassDocumentationNormalizer implements NormalizerI
 
             $this->addPaths($paths, $definitions, $resourceClass, $resourceShortName, $resourceMetadata, $mimeTypes, OperationType::COLLECTION);
             $this->addPaths($paths, $definitions, $resourceClass, $resourceShortName, $resourceMetadata, $mimeTypes, OperationType::ITEM);
+            if ($resourceMetadata->getAttribute('schema_only')) {
+                $this->getDefinition($definitions, $resourceMetadata, $resourceClass);
+            }
 
             if (null === $this->subresourceOperationFactory) {
                 continue;

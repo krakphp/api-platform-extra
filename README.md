@@ -148,9 +148,24 @@ App\Entity\Book:
     post:
       resource_class: App\DTO\CreateBookRequest
 App\DTO\CreateBookRequest:
-  schema_only: true
+  attributes:
+    schema_only: true
 ```
 
 This will make sure the documentation and the API use the schema of the `CreateBookRequest` instead of the normal `Book` entity schema. Using the `schema_only` attribute for the DTO ensures that no paths will be generated for that resource.
 
 You'll need to make sure the Message Bus Data Persister is enabled so that the wiring of the Request to the `CreateBook` Service is done properly.
+
+
+### Definition Only Resources
+
+There may be certain Resources that you want to only use for definitions, but use custom endpoints/swagger docs around them, to do that, you can just use the `schema_only: true` attribute.
+
+### ApiProperty Override
+
+Any definitions in the ApiProperty annotation do not override changes made from the Serializer Property Metadata Factory. You can control the ability for ApiProperty to override with the following option:
+
+```yaml
+api_platform_extra:
+    enable_overriding_annotation_property_metadata_factory: true
+```
