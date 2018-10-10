@@ -9,7 +9,9 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class ApiPlatformExtraExtension extends Extension
@@ -41,21 +43,19 @@ class ApiPlatformExtraExtension extends Extension
         $container->register(AdditionalSwaggerNormalizer::class)
             ->setDecoratedService('api_platform.swagger.normalizer.documentation')
             ->setArguments([
-                '@Krak\ApiPlatformExtra\Documentation\Serializer\AdditionalSwaggerNormalizer.inner',
+                new Reference(AdditionalSwaggerNormalizer::class . '.inner'),
                 Yaml::parseFile($config['additional_swagger_path'])
             ])
             ->addTag('serializer.normalizer', ['priority' => 18]);
     }
 
     private function registerDataPersister(ContainerBuilder $container, array $config) {
-        if (!$container->has('message_bus') || !$config['enable_message_bus_data_persister']) {
+        if (!\interface_exists(MessageBusInterface::class) || !$config['enable_message_bus_data_persister']) {
             return;
         }
 
         $container->register(MessageBusDataPersister::class)
-            ->setArguments([
-                '@message_bus'
-            ])
+            ->setArguments([new Reference('message_bus')])
             ->addTag('api_platform.data_persister', ['priority' => -10]);
     }
 }
