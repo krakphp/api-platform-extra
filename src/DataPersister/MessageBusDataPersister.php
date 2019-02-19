@@ -3,7 +3,9 @@
 namespace Krak\ApiPlatformExtra\DataPersister;
 
 use ApiPlatform\Core\DataPersister\DataPersisterInterface;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 final class MessageBusDataPersister implements DataPersisterInterface
 {
@@ -32,7 +34,16 @@ final class MessageBusDataPersister implements DataPersisterInterface
      * @return object|void Void will not be supported in API Platform 3, an object should always be returned
      */
     public function persist($data) {
-        return $this->messageBus->dispatch($data);
+        $envelope = $this->messageBus->dispatch($data);
+        if ($envelope instanceof Envelope === false) {
+            return $envelope;
+        }
+
+        if (null === $stamp = $envelope->last(HandledStamp::class)) {
+            return $data;
+        }
+
+        return $stamp->getResult();
     }
 
     /**
