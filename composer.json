@@ -14,7 +14,7 @@
     "authors": [
         {
             "name": "RJ Garcia",
-            "email": "rj@bighead.net"
+            "email": "ragboyjr@icloud.com"
         }
     ],
     "autoload": {
@@ -24,10 +24,10 @@
     },
     "require": {
         "api-platform/core": "^2.3",
-        "symfony/config": "^4.0",
-        "symfony/dependency-injection": "^4.0",
-        "symfony/http-kernel": "^4.0",
-        "symfony/yaml": "^4.0"
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/http-kernel": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0"
     },
     "require-dev": {
         "symfony/messenger": "^4.1",

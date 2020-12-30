@@ -8,6 +8,8 @@ Install with composer at `krak/api-platform-extra`.
 
 ## Usage
 
+By default all functionality provided by this library is *opt-in*, so you'll need to explicitly enable each feature in the config to make use of the features.
+
 ### MessageBusDataPersister
 
 The message bus data persister is enabled by default and controlled via the following config:
@@ -88,6 +90,11 @@ The actual POST API request for this would look like:
     "name": "Book Name!",
     "author": "/authors/1"
 }
+```
+
+```yaml
+api_platform_extra:
+    enable_constructor_deserialization: true
 ```
 
 ### Operation Resource Classes
